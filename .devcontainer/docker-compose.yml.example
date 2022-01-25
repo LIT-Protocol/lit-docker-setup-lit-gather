@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+
+  # =========================================== #
+  #                 APP: NODEJS                 #
+  # =========================================== #
+  lit_nodejs:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Update 'VARIANT' to pick an LTS version of Node.js: 16, 14, 12.
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local arm64/Apple Silicon.
+        VARIANT: 16-bullseye
+
+    volumes:
+      - ..:/workspace:cached
+      
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:lit_database
+
+    environment:
+
+      # -------------------------------------------------------- #
+      # Backend: Environment variables required for Gather Room  #
+      # -------------------------------------------------------- #
+      LIT_GATEWAY_DB_URL: postgres://postgres@localhost:5432/lit_gateway_dev
+      LIT_GATEWAY_ENVIRONMENT: local
+      LIT_GATEWAY_SESSION_SECRET: SECRET
+      LIT_GATEWAY_COVALENT_API_KEY: SECRET
+      LIT_GATEWAY_GATHER_ROOM_URL: https://gather.town/app/tXVe5OYt6nHS9Ey5/lit-protocol
+
+      # -------------------------------------------------------- #
+      # Frontend: Environment variables required for Gather Room #
+      # -------------------------------------------------------- #
+      REACT_APP_LIT_GATEWAY_FRONTEND_API_URL: http://localhost:3000
+      REACT_APP_LIT_GATEWAY_FRONTEND_HOST: http://localhost:3001
+      REACT_APP_LIT_GATEWAY_ENVIRONMENT: local
+      REACT_APP_LIT_GATEWAY_LIT_OG_NFT_TOKEN_ADDRESS: 0xB212AAbB89337947AF9A1cc41459A0D967C90Aec
+      REACT_APP_LIT_GATEWAY_DISCORD_CLIENT_ID: 896185999791628348
+      REACT_APP_LIT_GATEWAY_OAUTH_APP_HOST: http://localhost:4001
+
+      # ----------------------------------------------------------------- #
+      # Gather Controller: Environment variables required for Gather Room #
+      # ----------------------------------------------------------------- #
+      LIT_GATHER_CONTROLLER_GATHER_API_KEY: SECRET
+      LIT_GATHER_CONTROLLER_DB_URL: postgres://postgres@localhost:5432/lit_gateway_dev
+
+      # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #
+      #        IGNORE THIS, IT'S JUST HERE TO MAKE THE BACKEND APP WORKS        #
+      # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #
+      LIT_GATEWAY_TWITTER_CONSUMER_KEY: xxx
+      LIT_GATEWAY_TWITTER_CONSUMER_SECRET: xxx
+      LIT_GATEWAY_LIT_PROTOCOL_TWITTER_ID: xxx
+      LIT_GATEWAY_HODLGOD_SECRET: xxx
+      LIT_GATEWAY_MATIC_PRIVATE_KEY: xxx
+      LIT_GATEWAY_DISCORD_CLIENT_SECRET: xxx
+      REACT_APP_LIT_PROTOCOL_OG_NFT_CONTENT_SERVER_API_HOST: xxx
+      REACT_APP_LIT_PROTOCOL_OG_NFT_CONTENT_SERVER_FRONTEND_HOST: xxx
+
+    # Uncomment the next line to use a non-root user for all processes.
+    # user: node
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  # ============================================ #
+  #                   Database                   #
+  # ============================================ #
+  lit_database:
+    image: postgres:alpine
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: lit_gateway_dev
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+volumes:
+  postgres-data:
