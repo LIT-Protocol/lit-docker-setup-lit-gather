@@ -49,4 +49,9 @@ Now, these APIs will be available for the frontend
 - `git clone [https://github.com/LIT-Protocol/lit-oauth.git](https://github.com/LIT-Protocol/lit-oauth.git) lit_oauth`
 - `cd lit_oauth && yarn`
 - `yarn global add concurrently`
+- `yarn add fastify`
+- `yarn add fastify-cors`
+- `yarn add fastify-static`
+- `yarn add fastify-objectionjs`
+- `yarn add googleapis`
 - `yarn startDev`
