@@ -43,3 +43,10 @@ Now, these APIs will be available for the frontend
 - `git clone [https://github.com/LIT-Protocol/GatherController.git](https://github.com/LIT-Protocol/GatherController.git) lit_gather_controller`
 - `cd lit_gather_controller && yarn`
 - `PORT=3002 yarn startDev` to run
+
+## Setting up oAuth
+
+- `git clone [https://github.com/LIT-Protocol/lit-oauth.git](https://github.com/LIT-Protocol/lit-oauth.git) lit_oauth`
+- `cd lit_oauth && yarn`
+- `yarn global add concurrently`
+- `yarn startDev`
