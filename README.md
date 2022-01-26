@@ -14,9 +14,11 @@
 
 ## Setting up visual studio remote container with docker
 
-- `git clone repo` download the docker setup repo
+- download the docker setup repo
 - `./download.sh` run this bash script to download all required repositories
-- Open `docker-compose.yml` and set all the required environment variables
+- Open `docker-compose.yml.example` and set all the required environment variables
+- Rename `.example` at the end of the file name
+- Ctrl + Shift + P to select `Remote-Containers: Open Folder in Container..`
 
 ## **Setting up Node.js Backend**
 
