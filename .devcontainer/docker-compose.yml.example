@@ -43,7 +43,6 @@ services:
       REACT_APP_LIT_GATEWAY_ENVIRONMENT: local
       REACT_APP_LIT_GATEWAY_LIT_OG_NFT_TOKEN_ADDRESS: 0xB212AAbB89337947AF9A1cc41459A0D967C90Aec
       REACT_APP_LIT_GATEWAY_DISCORD_CLIENT_ID: 896185999791628348
-      REACT_APP_LIT_GATEWAY_OAUTH_APP_HOST: http://localhost:4001
 
       # ----------------------------------------------------------------- #
       # Gather Controller: Environment variables required for Gather Room #
@@ -54,6 +53,7 @@ services:
       # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #
       #        IGNORE THIS, IT'S JUST HERE TO MAKE THE BACKEND APP WORKS        #
       # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #
+      REACT_APP_LIT_GATEWAY_OAUTH_APP_HOST: http://localhost:4001
       LIT_GATEWAY_TWITTER_CONSUMER_KEY: xxx
       LIT_GATEWAY_TWITTER_CONSUMER_SECRET: xxx
       LIT_GATEWAY_LIT_PROTOCOL_TWITTER_ID: xxx
