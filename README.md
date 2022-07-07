@@ -15,19 +15,28 @@
 ## Setting up visual studio remote container with docker
 
 - download the docker setup repo
-- `./download.sh` run this bash script to download all required repositories
+- `./download.sh` run this bash script to download all required repositories:
+```
+https://github.com/LIT-Protocol/LitGatewayBackend.git
+https://github.com/LIT-Protocol/LitGatewayFrontend.git
+https://github.com/LIT-Protocol/GatherController.git
+https://github.com/LIT-Protocol/lit-oauth.git
+```
 - Open `docker-compose.yml.example` and set all the required environment variables
 - Rename `.example` at the end of the file name
 - Ctrl + Shift + P to select `Remote-Containers: Open Folder in Container..`
+- The docker will be running both nodejs backend and the database, but not the front-end and controller
 
 ## **Setting up Node.js Backend**
 
-- `git clone https://github.com/LIT-Protocol/LitGatewayBackend.git`
+- `cd lit_backend` 
 - `yarn` in the repo
 - `yarn migrate` to run the migrate.js script
 - `yarn knexMigrate` to run the SQL query for postgres
 - `yarn global add nodemon` to install nodemon
 - `PORT=3000 yarn startDev` to run
+
+> You might run into issue that `yarn` is `unable to connect to github.com`. If that's the case you might have to re-write the default protocol of Github by running this code: `git config --global url.https://github.com/.insteadOf git://github.com/` (Note that there's no type, it is "insteadOf")
 
 Now, these APIs will be available for the frontend
 
@@ -36,19 +45,16 @@ Now, these APIs will be available for the frontend
 
 ## Setting up the React Frontend
 
-- `git clone [https://github.com/LIT-Protocol/LitGatewayFrontend.git](https://github.com/LIT-Protocol/LitGatewayFrontend.git) lit_frontend`
 - `cd lit_frontend && yarn`
 - `PORT=3001 yarn start` to run
 
 ## Setting up Lit-Gather Controller
 
-- `git clone [https://github.com/LIT-Protocol/GatherController.git](https://github.com/LIT-Protocol/GatherController.git) lit_gather_controller`
 - `cd lit_gather_controller && yarn`
 - `PORT=3002 yarn startDev` to run
 
 ## Setting up oAuth
 
-- `git clone [https://github.com/LIT-Protocol/lit-oauth.git](https://github.com/LIT-Protocol/lit-oauth.git) lit_oauth`
 - `cd lit_oauth && yarn`
 - `yarn global add concurrently`
 - `yarn add fastify`
